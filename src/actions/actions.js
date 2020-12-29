@@ -1,0 +1,5 @@
+const ACTIONS = {
+    SET_SIDEBAR_VISIBILITY: "SET_SIDEBAR_VISIBILITY",
+};
+
+export default ACTIONS;
