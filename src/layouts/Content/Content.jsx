@@ -1,7 +1,18 @@
 import React from "react";
-import { Table } from "@material-ui/core";
+import UserTable from "../../components/UserTable";
+import { makeStyles, Paper } from "@material-ui/core";
 
-function Content(props) {
-    return <div></div>;
-}
+const useStyles = makeStyles(theme => ({
+    content: {
+        margin: theme.spacing(2),
+    },
+}));
+const Content = () => {
+    const classes = useStyles();
+    return (
+        <Paper className={classes.content}>
+            <UserTable></UserTable>
+        </Paper>
+    );
+};
 export default Content;
