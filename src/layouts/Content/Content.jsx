@@ -1,5 +1,6 @@
 import React from "react";
 import UserTable from "../../components/UserTable";
+import AddForm from "../Content/AddForm";
 import { makeStyles, Paper } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -12,6 +13,7 @@ const Content = () => {
     return (
         <Paper className={classes.content}>
             <UserTable></UserTable>
+            <AddForm></AddForm>
         </Paper>
     );
 };

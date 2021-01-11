@@ -15,7 +15,6 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(0, 2),
         display: "flex",
         alignItems: "center",
-        width: "auto",
         flexGrow: 1,
         borderRadius: "5px",
         backgroundColor: fade(theme.palette.common.white, 0.15),
@@ -24,7 +23,10 @@ const useStyles = makeStyles(theme => ({
         },
         transition: ".3s",
     },
-    input: {},
+    input: {
+        paddingLeft: theme.spacing(2),
+        width: "100%",
+    },
     account: {
         padding: theme.spacing(0, 2),
     },
