@@ -15,6 +15,7 @@ const initialState = [
         imageURL: Professor,
         actor: "Alvaro Morte",
         gender: "Male",
+        id: 0,
     },
     {
         name: "Tokyo",
@@ -22,6 +23,7 @@ const initialState = [
         imageURL: Tokyo,
         actor: "Úrsula Corberó,",
         gender: "Female",
+        id: 1,
     },
     {
         name: "Berlin",
@@ -29,6 +31,7 @@ const initialState = [
         imageURL: Berlin,
         actor: "Pedro Alonso",
         gender: "Male",
+        id: 2,
     },
     {
         name: "Nairobi",
@@ -36,6 +39,7 @@ const initialState = [
         imageURL: Nairobi,
         actor: "Alba Flores",
         gender: "Female",
+        id: 3,
     },
     {
         name: "Rio",
@@ -43,6 +47,7 @@ const initialState = [
         imageURL: Rio,
         actor: "Miguel Herran",
         gender: "Male",
+        id: 4,
     },
     {
         name: "Moscow",
@@ -50,6 +55,7 @@ const initialState = [
         imageURL: Moscow,
         actor: "Paco Tous",
         gender: "Male",
+        id: 5,
     },
     {
         name: "Denver",
@@ -57,6 +63,7 @@ const initialState = [
         imageURL: Denver,
         actor: "Jaime Lorente",
         gender: "Male",
+        id: 6,
     },
     {
         name: "Helsinki",
@@ -64,6 +71,7 @@ const initialState = [
         imageURL: Helsinki,
         actor: "Darko Peric",
         gender: "Male",
+        id: 7,
     },
     {
         name: "Oslo",
@@ -71,6 +79,7 @@ const initialState = [
         imageURL: Oslo,
         actor: "Roberto Garcia",
         gender: "Male",
+        id: 8,
     },
 ];
 //payload: { gender, name, koName, actor, file }
@@ -78,16 +87,20 @@ const charactersReducer = (state = initialState, action) => {
     const copiedState = [...state];
     switch (action.type) {
         case ACTION.ADD_CHARACTER:
-            console.log(action.payload);
             copiedState.push({
                 name: action.payload.name,
                 koName: action.payload.koName,
                 imageURL: action.payload.file,
                 actor: action.payload.actor,
                 gender: action.payload.gender,
+                id: action.payload.id,
             });
-            console.log(action.payload.file);
             return copiedState;
+        case ACTION.DELETE_CHARACTER:
+            return copiedState.filter(v => {
+                return v.id !== action.payload.id;
+            });
+
         default:
             return copiedState;
     }

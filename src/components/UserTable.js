@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ACTION from "../actions/actions";
 import {
@@ -13,7 +13,6 @@ import {
     TableCell,
     TablePagination,
     Typography,
-    Divider,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -33,16 +32,31 @@ const useStyles = makeStyles(theme => ({
         justifyContent: "space-between",
         alignItems: "center",
     },
+    delete: {
+        backgroundColor: theme.palette.error.main,
+    },
+    modify: {
+        backgroundColor: theme.palette.success.main,
+    },
 }));
 
 const UserTable = () => {
     const classes = useStyles();
+
+    //state
     const [currentPage, setCurrentPage] = useState(0);
     const [numberOfRows, setNumberOfRows] = useState(5);
 
+    //redux
     const characters = useSelector(state => state.charactersReducer);
     const dispatch = useDispatch();
 
+    const handleDelete = useCallback(
+        id => {
+            dispatch({ type: ACTION.DELETE_CHARACTER, payload: { id } });
+        },
+        [dispatch]
+    );
     const handleAddForm = useCallback(() => {
         dispatch({ type: ACTION.SET_ADDFORM_VISIBILITY });
     }, [dispatch]);
@@ -69,25 +83,31 @@ const UserTable = () => {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
-                            <TableCell>#</TableCell>
-                            <TableCell>Photo</TableCell>
-                            <TableCell>Name</TableCell>
-                            <TableCell>koName</TableCell>
-                            <TableCell>Actor</TableCell>
-                            <TableCell>Gender</TableCell>
+                            <TableCell align="center">#</TableCell>
+                            <TableCell align="center">Photo</TableCell>
+                            <TableCell align="center">Name</TableCell>
+                            <TableCell align="center">koName</TableCell>
+                            <TableCell align="center">Actor</TableCell>
+                            <TableCell align="center">Gender</TableCell>
+                            <TableCell align="center">Button</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {characters.slice(currentPage * numberOfRows, currentPage * numberOfRows + numberOfRows).map((data, index) => (
-                            <TableRow key={data.name}>
-                                <TableCell>{currentPage * numberOfRows + index}</TableCell>
-                                <TableCell>
+                            <TableRow key={currentPage * numberOfRows + index}>
+                                <TableCell align="center">{currentPage * numberOfRows + index}</TableCell>
+                                <TableCell align="center">
                                     <img height="50px" width="50px" src={data.imageURL} alt={data.imageURL} />
                                 </TableCell>
-                                <TableCell>{data.name}</TableCell>
-                                <TableCell>{data.koName}</TableCell>
-                                <TableCell>{data.actor}</TableCell>
-                                <TableCell>{data.gender}</TableCell>
+                                <TableCell align="center">{data.name}</TableCell>
+                                <TableCell align="center">{data.koName}</TableCell>
+                                <TableCell align="center">{data.actor}</TableCell>
+                                <TableCell align="center">{data.gender}</TableCell>
+                                <TableCell align="center">
+                                    <Button size="small" onClick={() => handleDelete(data.id)} className={classes.delete}>
+                                        DELETE
+                                    </Button>
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
